@@ -1,5 +1,5 @@
 ﻿Console.Clear();
-Console.WriteLine("Какую задачу вы хотите проверить (1/2/3/4)? ");
+Console.WriteLine("Какую задачу вы хотите проверить (1/2/3)? ");
 int Task = Convert.ToInt32(Console.ReadLine());
 
 if (Task == 1)
@@ -10,15 +10,10 @@ else if (Task == 2)
 {
     Task2();
 }
-// else if(Task == 3){
-//     Task3();
-// }
-
-// else if(Task == 4){
-//     Task4();
-// }  
-
-
+else if (Task == 3)
+{
+    Task3();
+}
 
 
 // Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
@@ -149,6 +144,97 @@ void Task2()
         }
 
 
+    }
+}
+
+
+
+//Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, 
+//и возвращает значение этого элемента или же указание, что такого элемента нет.
+
+void Task3()
+{
+    Console.WriteLine("Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет. ");
+    Console.WriteLine();
+    Console.WriteLine("Введите количество строк двумерного массива");
+    int rowCount = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine("Введите количество столбцов двумерного массива");
+    int columnCount = Convert.ToInt32(Console.ReadLine());
+
+    
+    string? userString = " ";
+    Console.WriteLine("Введите через запятую позиции элемента, который хотите найти в массиве");
+    userString = Console.ReadLine();
+
+    //Console.WriteLine("Пользователь ввел строку: " + userString);
+
+    string?[] Num = userString.Split(',');
+
+    int[] numbers = Num.Select(int.Parse).ToArray();
+    Console.WriteLine($"Позиция в строке {numbers[0]} в столбце {numbers[1]}");
+
+    double[,] array = FillArray(rowCount, columnCount, 1, 9);
+    Console.WriteLine();
+
+    PrintArray(array);
+    Console.WriteLine();   
+
+    SearchPositions(array);
+    Console.WriteLine();
+
+    double[,] FillArray(int rows, int columns, int min, int max)
+    {
+        double[,] filledArray = new double[rows, columns];
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                filledArray[i, j] = new Random().Next(min, max + 1);
+            }
+        }
+        return filledArray;
+    }
+
+    void PrintArray(double[,] inputArray)
+    {
+        for (int i = 0; i < inputArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < inputArray.GetLength(1); j++)
+            {
+                Console.Write(" " + inputArray[i, j]);
+            }
+            Console.WriteLine();
+        }
+    }
+
+    
+
+    void SearchPositions(double[,] array)
+    {
+        if (numbers[0] > array.GetLength(0) || numbers[1] > array.GetLength(0))
+        {
+            Console.WriteLine($"Такого числа в массиве нет");
+        }
+        else if (numbers[0] < 0 || numbers[1] < 0)
+        {
+            Console.WriteLine($"Введите положительные числа");
+        }
+        
+        for (int i = 0; i < array.GetLength(0); i++)        
+        {             
+            for (int j = 0; j < array.GetLength(1); j++)
+            {   
+                if ( i == numbers[0] && j == numbers[1])
+                {                       
+                    Console.WriteLine($" Число в массиве  {array [i,j]}");                       
+                }               
+               
+            }                     
+        }
+              
+        
     }
 }
 
